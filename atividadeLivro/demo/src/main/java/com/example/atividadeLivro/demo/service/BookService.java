@@ -17,12 +17,15 @@ public class BookService {
         Book createdBook = repository.save(book);
         return createdBook;
     }
+
     ;
 
     public Book findById(Long id) {
         Book bookById = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Not found"));
         return bookById;
-    };
+    }
+
+    ;
 
     public Book updateBook(Long id, Book book) {
         Book updatedBook = repository.findById(id).orElseThrow(() -> new EntityNotFoundException(("Not found")));
@@ -36,5 +39,7 @@ public class BookService {
 
     public void delete(Long id) {
         repository.deleteById(id);
-    };
+    }
+
+    ;
 }
