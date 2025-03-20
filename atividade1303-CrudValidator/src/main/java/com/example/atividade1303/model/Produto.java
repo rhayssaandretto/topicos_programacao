@@ -16,6 +16,18 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Produto {
 
+    /*
+    YVES MORELLO PEREIRA
+    RICARDO FRANCISCO
+    RHAYSSA ANDRETTO
+    CASSIA BASSO
+    JEAN APARECIDO
+    VINICIUS VILELA
+    JOAO ROLLO
+    VINICIUS KENJI
+    LORENZO BEGNOZZI
+    */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
