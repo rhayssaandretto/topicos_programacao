@@ -4,6 +4,7 @@ import com.example.atividadeLivro.demo.enums.StatusBook;
 import com.example.atividadeLivro.demo.model.Book;
 import com.example.atividadeLivro.demo.service.BookService;
 import com.sun.source.tree.LambdaExpressionTree;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class BookController {
     public BookService bookService;
 
     @PostMapping()
-    public ResponseEntity<Void> create(@RequestBody Book book) {
+    public ResponseEntity<Void> create(@RequestBody @Valid Book book) {
         Book createdBook = bookService.create(book);
 
         URI uri = ServletUriComponentsBuilder
@@ -35,7 +36,8 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity<List<Book>> findAll() {
-        return ResponseEntity.ok(bookService.getAll());
+        List<Book> books = bookService.getAll();
+        return ResponseEntity.ok(books);
     }
 
     @GetMapping("/{id}")
@@ -47,7 +49,7 @@ public class BookController {
     ;
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateById(@PathVariable Long id, @RequestBody Book book) {
+    public ResponseEntity<Book> updateById(@PathVariable Long id, @RequestBody @Valid Book book) {
         Book updatedBook = bookService.updateBook(id, book);
         return ResponseEntity.ok(updatedBook);
     }

@@ -1,6 +1,8 @@
 package com.example.atividadeLivro.demo.service;
 
 import com.example.atividadeLivro.demo.enums.StatusBook;
+import com.example.atividadeLivro.demo.exceptions.GlobalExceptionHandler;
+import com.example.atividadeLivro.demo.exceptions.NotFoundException;
 import com.example.atividadeLivro.demo.model.Book;
 import com.example.atividadeLivro.demo.repository.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,12 +13,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BookService {
+public class BookService extends GlobalExceptionHandler {
 
     @Autowired
     private BookRepository repository;
 
     public Book create(Book book) {
+
         Book createdBook = repository.save(book);
         return createdBook;
     }
@@ -24,6 +27,11 @@ public class BookService {
     ;
 
     public List<Book> getAll() {
+
+        List<Book> books = repository.findAll();
+        if (repository.findAll().isEmpty()){
+            return null;
+        }
         return repository.findAll();
     }
 
@@ -49,6 +57,7 @@ public class BookService {
     ;
 
     public void delete(Long id) {
+        repository.findById(id).orElseThrow(() -> new EntityNotFoundException(("Not found")));
         repository.deleteById(id);
     }
 
